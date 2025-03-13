@@ -54,9 +54,10 @@
       font-weight: 800;
       margin-bottom: 5px;
     }
+    /* Changed subtext color from white to neon green for visibility */
     .header p {
       font-size: 16px;
-      color: var(--text);
+      color: var(--primary);
     }
 
     .progress-container {
@@ -201,6 +202,11 @@
       margin-bottom: 10px;
       cursor: pointer;
     }
+    /* Ensure checkboxes in submit section are block elements for better alignment */
+    .checkbox-group .checkbox-option {
+      display: block;
+      margin-bottom: 10px;
+    }
 
     /* FIXED CHECKBOX & RADIO SIZING */
     .radio-input,
@@ -265,6 +271,19 @@
       cursor: help;
       margin-left: 5px;
       color: var(--primary);
+      position: relative;
+    }
+    .tooltip:hover::after {
+      content: attr(title);
+      position: absolute;
+      top: 20px;
+      left: 0;
+      background: #333;
+      color: #fff;
+      padding: 2px 5px;
+      border-radius: 3px;
+      white-space: nowrap;
+      z-index: 10;
     }
 
     .file-upload {
@@ -754,7 +773,7 @@
                 <span class="checkbox-label">I'VE JOINED THE SERVER.</span>
                 <span class="discord-cue">(Click JOIN NOW first)</span>
               </label>
-              <!-- JOIN NOW button with proper discord link -->
+              <!-- JOIN NOW button with proper discord link & target="_blank" -->
               <a href="https://discord.gg/Bz2cqz6GRm" class="submit-button" style="margin-left: 15px; color: black;" target="_blank" id="joinNowButton">
                 JOIN NOW
               </a>
@@ -772,7 +791,7 @@
             <p style="color: #aaa; margin-bottom: 15px; text-transform: uppercase; font-size: 14px;">
               EXAMPLE: "HELLO! I'VE JUST SENT AN APPLICATION TO BECOME A BOOSTER."
             </p>
-            <a href="https://discord.gg/Bz2cqz6GRm" style="display: inline-block; float: right; background-color: #333; color: white; padding: 8px 20px; text-decoration: none; transition: all 0.2s; text-transform: uppercase; font-size: 14px;">
+            <a href="https://discord.gg/Bz2cqz6GRm" style="display: inline-block; float: right; background-color: #333; color: white; padding: 8px 20px; text-decoration: none; transition: all 0.2s; text-transform: uppercase; font-size: 14px;" target="_blank">
               GO TO DISCORD
             </a>
             <div style="clear: both;"></div>
@@ -977,7 +996,8 @@
             allValid = false;
           } else if (input.type === "radio") {
             const name = input.name;
-            const radioGroup = page2.querySelectorAll(`input[type="radio"][name="${name}"]`);
+            // Fix the query selector for radio buttons
+            const radioGroup = page2.querySelectorAll('input[type="radio"][name="' + name + '"]');
             let anyChecked = false;
             radioGroup.forEach(function (radio) { if (radio.checked) anyChecked = true; });
             if (!anyChecked) allValid = false;
@@ -1015,7 +1035,7 @@
           element.addEventListener("change", function () {
             removeError(this);
             if (element.type === "radio") {
-              const radioButtons = document.querySelectorAll(`input[type="radio"][name="${element.name}"]`);
+              const radioButtons = document.querySelectorAll('input[type="radio"][name="' + element.name + '"]');
               radioButtons.forEach(function (radio) { removeError(radio); });
             }
           });
@@ -1076,7 +1096,7 @@
         if (element.type === "checkbox") {
           if (element.required && !element.checked) { isValid = false; }
         } else if (element.type === "radio") {
-          const radioGroup = document.querySelectorAll(`input[type="radio"][name="${element.name}"]`);
+          const radioGroup = document.querySelectorAll('input[type="radio"][name="' + element.name + '"]');
           let radioChecked = false;
           radioGroup.forEach(function (radio) { if (radio.checked) radioChecked = true; });
           if (!radioChecked) isValid = false;
