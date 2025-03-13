@@ -448,6 +448,44 @@
       border-color: var(--error) !important;
       box-shadow: 0 0 3px rgba(255, 51, 51, 0.3);
     }
+
+    /* ===================================== */
+    /* OVERRIDES FOR HEADER & SECTION TEXT   */
+    /* ===================================== */
+
+    /* 1. Header text more visible (bright neon) */
+    .header h1,
+    .header p {
+      color: #c4ff00 !important; /* Neon green to stand out */
+    }
+
+    /* 2. Make sections darker & text white for contrast */
+    .section {
+      background-color: rgba(0, 0, 0, 0.8) !important; 
+      color: #ffffff !important;
+    }
+    .section * {
+      color: #ffffff !important;
+    }
+
+    /* 3. Checkbox and radio labels in white */
+    .checkbox-label,
+    .radio-label {
+      color: #ffffff !important;
+    }
+
+    /* 4. Submit button stands out with neon background & dark text */
+    .submit-button {
+      background-color: #c4ff00 !important;
+      color: #101114 !important; 
+      border: none;
+    }
+
+    /* 5. Back button more visible (optional tweak) */
+    .back-button {
+      background-color: #333 !important;
+      color: #ffffff !important;
+    }
   </style>
 </head>
 <body>
@@ -1509,3 +1547,4 @@
   </script>
 </body>
 </html>
+
