@@ -220,11 +220,12 @@
       cursor: pointer;
     }
 
+    /* Adjusting checkbox & radio sizes */
     .radio-input,
     .checkbox-input {
       position: relative;
-      width: 18px;
-      height: 18px;
+      width: 14px; /* Smaller than before */
+      height: 14px; 
       margin-right: 10px;
       margin-top: 2px;
       -webkit-appearance: none;
@@ -256,8 +257,8 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 8px;
-      height: 8px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background-color: black;
     }
@@ -266,7 +267,7 @@
       content: '✔';
       position: absolute;
       color: black;
-      font-size: 12px;
+      font-size: 10px;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -277,6 +278,7 @@
       font-size: 14px;
       text-transform: uppercase;
       margin-top: 1px;
+      color: #ffffff !important; /* ensure visible */
     }
 
     .file-upload {
@@ -487,6 +489,7 @@
       color: #ffffff !important;
     }
   </style>
+  <!-- Netlify reCAPTCHA script (optional if you want Google reCAPTCHA instead) -->
 </head>
 <body>
   <div class="container" style="padding-bottom: 70px;">
@@ -509,10 +512,6 @@
       </div>
     </div>
 
-    <!-- 
-      Using "name" for every field ensures Netlify captures them in CSV.
-      Also includes a "redirect" hidden field for the custom thank-you page.
-    -->
     <form
       id="applicationForm"
       name="applicationForm"
@@ -650,39 +649,10 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="form-label required">Are you applying as a solo booster, a small group, or a team/community?</label>
-            <div class="radio-group">
-              <label class="radio-option">
-                <input 
-                  type="radio" 
-                  name="boosterType" 
-                  class="radio-input" 
-                  value="Solo"
-                  required 
-                />
-                <span class="radio-label">Solo booster</span>
-              </label>
-              <label class="radio-option">
-                <input 
-                  type="radio" 
-                  name="boosterType" 
-                  class="radio-input" 
-                  value="Small Group"
-                />
-                <span class="radio-label">Small group</span>
-              </label>
-              <label class="radio-option">
-                <input 
-                  type="radio" 
-                  name="boosterType" 
-                  class="radio-input" 
-                  value="Team/Community"
-                />
-                <span class="radio-label">Team/community</span>
-              </label>
-            </div>
-          </div>
+          <!-- 
+            REMOVED the entire "Are you applying as a solo booster..." section 
+            per instruction #2
+          -->
         </div>
 
         <!-- Regions and Services -->
@@ -1058,7 +1028,13 @@
                 <span class="checkmark"></span>
                 <span class="checkbox-label">I'VE JOINED THE SERVER.</span>
               </label>
-              <a href="#" class="submit-button" style="margin-left: 15px; color: black;">
+              <!-- Updated link to your permanent Discord invite -->
+              <a 
+                href="https://discord.gg/Bz2cqz6GRm" 
+                class="submit-button" 
+                style="margin-left: 15px; color: black;"
+                target="_blank"
+              >
                 JOIN NOW
               </a>
             </div>
@@ -1103,7 +1079,8 @@
                 required
               />
               <span class="checkmark"></span>
-              <span class="checkbox-label">I AGREE TO THE THIRD-PARTY VERIFICATION PROCESS</span>
+              <!-- BOLD "I AGREE" text -->
+              <span class="checkbox-label"><strong>I AGREE</strong> TO THE THIRD-PARTY VERIFICATION PROCESS</span>
             </label>
             <label class="checkbox-option" style="margin-top: 15px;">
               <input 
@@ -1124,6 +1101,7 @@
           <button type="submit" class="submit-button" id="submitButton" disabled>
             SUBMIT APPLICATION
           </button>
+
           <div class="checkbox-group" style="margin-top: 25px;">
             <label class="checkbox-option">
               <input 
@@ -1151,17 +1129,9 @@
                 IF ANY FORM FIELDS ARE FILLED OUT INCORRECTLY OR MISSING, THE APPLICATION MAY BE DECLINED WITHOUT FURTHER EXPLANATION. <strong>I UNDERSTAND.</strong>
               </span>
             </label>
-            <label class="checkbox-option" style="margin-top: 20px;">
-              <input 
-                type="checkbox" 
-                class="checkbox-input" 
-                id="captcha"
-                name="captcha"
-                required
-              />
-              <span class="checkmark"></span>
-              <span class="checkbox-label">I AM NOT A ROBOT.</span>
-            </label>
+
+            <!-- Remove "I AM NOT A ROBOT" checkbox; replace with Netlify reCAPTCHA -->
+            <div data-netlify-recaptcha="true"></div>
           </div>
         </div>
 
@@ -1199,6 +1169,9 @@
           element.style.display = "none";
         }
       });
+
+      // Make sure the container remains visible
+      document.querySelector(".container").style.display = "block";
 
       // 1. For the game selection dropdown
       const gameSelect = document.getElementById("game");
@@ -1547,4 +1520,3 @@
   </script>
 </body>
 </html>
-
