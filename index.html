@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Vanguard Boost Application</title>
   <style>
+    /* DARKER COLOR SCHEME */
     :root {
-      --primary: #c4ff00; /* Brighter neon green */
+      --primary: #c4ff00;          /* Brighter neon green */
       --primary-dark: #a2d600;
-      --secondary: #101114; 
-      --background-dark: #0a0a0d; 
-      --background-gradient: linear-gradient(to bottom, #101114, #0a0a0d);
-      --text: #ffffff; 
+      --secondary: #08080B;       /* Darker background */
+      --background-dark: #050507; /* Darker background */
+      --background-gradient: linear-gradient(to bottom, #08080B, #050507);
+      --text: #ffffff;
       --text-secondary: #b0b0b0;
       --error: #ff3e3e;
       --border: #222222;
@@ -45,21 +46,19 @@
       margin-bottom: 20px;
     }
 
+    /* TITLE CHANGE per instructions */
     .header h1 {
       font-size: 32px;
       text-transform: uppercase;
       letter-spacing: 2px;
-      color: var(--text);
+      color: var(--primary); /* neon green */
       font-weight: 800;
       margin-bottom: 5px;
     }
 
+    /* We removed the sub-header line and replaced everything with one statement */
     .header p {
-      color: var(--primary);
-      font-size: 16px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 500;
+      display: none; /* no longer needed, so hidden */
     }
 
     .progress-container {
@@ -140,11 +139,13 @@
 
     .section {
       margin-bottom: 30px;
-      background-color: var(--secondary);
+      /* Slightly darker background for sections */
+      background-color: rgba(0, 0, 0, 0.9) !important;
       border-radius: 8px;
       padding: 20px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       border: 1px solid #222;
+      color: #fff !important; /* ensure text is visible */
     }
 
     .section h2 {
@@ -220,12 +221,12 @@
       cursor: pointer;
     }
 
-    /* Adjusting checkbox & radio sizes */
+    /* FIXED CHECKBOX SIZING (14x14) */
     .radio-input,
     .checkbox-input {
       position: relative;
-      width: 14px; /* Smaller than before */
-      height: 14px; 
+      width: 14px;
+      height: 14px;
       margin-right: 10px;
       margin-top: 2px;
       -webkit-appearance: none;
@@ -235,6 +236,7 @@
       outline: none;
       transition: all 0.2s;
       cursor: pointer;
+      background-color: transparent;
     }
 
     .radio-input {
@@ -278,7 +280,7 @@
       font-size: 14px;
       text-transform: uppercase;
       margin-top: 1px;
-      color: #ffffff !important; /* ensure visible */
+      color: #ffffff !important;
     }
 
     .file-upload {
@@ -380,7 +382,7 @@
       display: flex;
       justify-content: space-between;
       margin-top: 20px;
-      margin-bottom: 50px; /* more bottom margin */
+      margin-bottom: 50px;
     }
 
     .nav-button {
@@ -450,52 +452,13 @@
       border-color: var(--error) !important;
       box-shadow: 0 0 3px rgba(255, 51, 51, 0.3);
     }
-
-    /* ===================================== */
-    /* OVERRIDES FOR HEADER & SECTION TEXT   */
-    /* ===================================== */
-
-    /* 1. Header text more visible (bright neon) */
-    .header h1,
-    .header p {
-      color: #c4ff00 !important; /* Neon green to stand out */
-    }
-
-    /* 2. Make sections darker & text white for contrast */
-    .section {
-      background-color: rgba(0, 0, 0, 0.8) !important; 
-      color: #ffffff !important;
-    }
-    .section * {
-      color: #ffffff !important;
-    }
-
-    /* 3. Checkbox and radio labels in white */
-    .checkbox-label,
-    .radio-label {
-      color: #ffffff !important;
-    }
-
-    /* 4. Submit button stands out with neon background & dark text */
-    .submit-button {
-      background-color: #c4ff00 !important;
-      color: #101114 !important; 
-      border: none;
-    }
-
-    /* 5. Back button more visible (optional tweak) */
-    .back-button {
-      background-color: #333 !important;
-      color: #ffffff !important;
-    }
   </style>
-  <!-- Netlify reCAPTCHA script (optional if you want Google reCAPTCHA instead) -->
 </head>
 <body>
   <div class="container" style="padding-bottom: 70px;">
     <div class="header">
-      <h1>VANGUARD BOOST <span style="color: var(--primary);">APPLICATION</span></h1>
-      <p>Join our team of gaming experts</p>
+      <!-- TITLE CHANGED per instructions -->
+      <h1>VANGUARD BOOST HELP US MAKE THE FUTURE :)</h1>
     </div>
 
     <div class="progress-container">
@@ -649,10 +612,7 @@
             </div>
           </div>
 
-          <!-- 
-            REMOVED the entire "Are you applying as a solo booster..." section 
-            per instruction #2
-          -->
+          <!-- Booster type section REMOVED per instructions -->
         </div>
 
         <!-- Regions and Services -->
@@ -1015,6 +975,10 @@
               YOU ARE INVITED TO JOIN THE RECRUITING DISCORD SERVER.
             </p>
             <div style="display: flex; align-items: center; margin-top: 15px;">
+              <!-- 
+                Checkbox is initially disabled, 
+                becomes enabled after user clicks "JOIN NOW" 
+              -->
               <label 
                 class="checkbox-option" 
                 style="margin: 0; padding-left: 35px; position: relative;"
@@ -1028,12 +992,13 @@
                 <span class="checkmark"></span>
                 <span class="checkbox-label">I'VE JOINED THE SERVER.</span>
               </label>
-              <!-- Updated link to your permanent Discord invite -->
+              <!-- Updated link to your permanent Discord invite, with an ID for JS logic -->
               <a 
                 href="https://discord.gg/Bz2cqz6GRm" 
                 class="submit-button" 
                 style="margin-left: 15px; color: black;"
                 target="_blank"
+                id="joinNowButton"
               >
                 JOIN NOW
               </a>
@@ -1096,8 +1061,8 @@
           </div>
         </div>
 
-        <!-- Submit Section -->
-        <div style="margin-top: 20px; margin-bottom: 30px; text-align: center;">
+        <!-- Submit Section (darker background to ensure visibility) -->
+        <div style="margin-top: 20px; margin-bottom: 30px; text-align: center; background-color: rgba(0,0,0,0.9); padding: 20px;">
           <button type="submit" class="submit-button" id="submitButton" disabled>
             SUBMIT APPLICATION
           </button>
@@ -1130,7 +1095,7 @@
               </span>
             </label>
 
-            <!-- Remove "I AM NOT A ROBOT" checkbox; replace with Netlify reCAPTCHA -->
+            <!-- Netlify reCAPTCHA replaces the old "I am not a robot" checkbox -->
             <div data-netlify-recaptcha="true"></div>
           </div>
         </div>
@@ -1169,9 +1134,23 @@
           element.style.display = "none";
         }
       });
-
-      // Make sure the container remains visible
+      // Make sure our container remains visible
       document.querySelector(".container").style.display = "block";
+
+      // "JOIN NOW" button & "I'VE JOINED THE SERVER" checkbox logic
+      const joinedDiscordCheckbox = document.getElementById("joinedDiscord");
+      const joinNowButton = document.getElementById("joinNowButton");
+      if (joinedDiscordCheckbox && joinNowButton) {
+        // Disable checkbox initially
+        joinedDiscordCheckbox.disabled = true;
+
+        // Enable it only after user clicks the JOIN NOW button
+        joinNowButton.addEventListener("click", function(e) {
+          // The link opens in a new tab due to target="_blank"
+          // Now enable the checkbox
+          joinedDiscordCheckbox.disabled = false;
+        });
+      }
 
       // 1. For the game selection dropdown
       const gameSelect = document.getElementById("game");
@@ -1510,11 +1489,6 @@
           }
         }
         element.classList.remove("error");
-      }
-
-      function isValidEmail(email) {
-        const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return pattern.test(email);
       }
     });
   </script>
