@@ -10,7 +10,7 @@
       --primary: #c4ff00;          /* Neon green */
       --primary-dark: #a2d600;
       --secondary: #08080B;        /* Dark background */
-      --background-dark: #050507;   /* Even darker background */
+      --background-dark: #050507;  /* Even darker background */
       --background-gradient: linear-gradient(to bottom, #08080B, #050507);
       --text: #ffffff;
       --text-secondary: #b0b0b0;
@@ -33,6 +33,7 @@
       line-height: 1.6;
       min-height: 100vh;
       background-attachment: fixed;
+
       /* OVERRIDE: White background with grid below */
       background-color: #fff !important;
       background-image:
@@ -552,6 +553,25 @@
             </div>
             <div id="otherAvailabilityInput" style="display: none; margin-top: 10px;">
               <input type="text" class="form-input" id="otherAvailability" name="otherAvailability" placeholder="Specify availability" />
+            </div>
+          </div>
+
+          <!-- NEW: Booster Type (Solo, Small Group, Team/Community) -->
+          <div class="form-group">
+            <label class="form-label required">Are you applying as a solo booster, a small group, or a team/community?</label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="boosterType" class="radio-input" value="Solo" required />
+                <span class="radio-label">Solo booster</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="boosterType" class="radio-input" value="Small Group" />
+                <span class="radio-label">Small group</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="boosterType" class="radio-input" value="Team/Community" />
+                <span class="radio-label">Team/community</span>
+              </label>
             </div>
           </div>
         </div>
@@ -1104,8 +1124,12 @@
         } else if (element.type === "radio") {
           const radioGroup = document.querySelectorAll('input[type="radio"][name="' + element.name + '"]');
           let radioChecked = false;
-          radioGroup.forEach(function (radio) { if (radio.checked) radioChecked = true; });
-          if (!radioChecked) isValid = false;
+          radioGroup.forEach(function (radio) {
+            if (radio.checked) radioChecked = true;
+          });
+          if (!radioChecked) {
+            isValid = false;
+          }
         } else if (element.tagName === "SELECT") {
           if (!element.value) { isValid = false; }
         } else {
