@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Thank You!</title>
   <style>
     body {
@@ -45,13 +45,24 @@
 </head>
 <body>
   <div class="thank-you-container">
-    <h1>Submission Received!</h1>
-    <p>
-      Thank you for submitting your Vanguard Boost Application.<br />
-      We’ll review your information and get back to you soon!
+    <h1>Application Received!</h1>
+    <p id="message">
+      Thank you for submitting your application.<br>
+      Your Application ID is: <span id="appId"></span><br>
+      A recruiter will reach out if your initial screening passes.<br>
+      If rejected, you will be removed and blocked from Discord.<br>
+      If waitlisted or requiring an extended review, you'll receive a follow-up email after 5–7 days (or 2–3 weeks for extended review).
     </p>
     <a class="button" href="/">Return to Home</a>
   </div>
+  <script>
+    // Extract applicationId from URL query parameters
+    function getQueryParam(param) {
+      let params = new URLSearchParams(window.location.search);
+      return params.get(param);
+    }
+    document.getElementById("appId").textContent = getQueryParam("applicationId") || "N/A";
+  </script>
 </body>
 </html>
 
