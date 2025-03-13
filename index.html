@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanguard Boost Application</title>
+    <style>
+        :root {
+            --primary: #c4ff00; /* Brighter neon green to match the app */
+            --primary-glow: rgba(196, 255, 0, 0.5);
+            --primary-dark: #a2d600;
+            --secondary: #101114; /* Darker blue-black */
+            --background-dark: #0a0a0d; /* Very dark blue-black */
+            --background-gradient: linear-gradient(to bottom, #101114, #0a0a0d);
+            --card: #141518; 
+            --text: #ffffff; 
+            --text-secondary: #b0b0b0;
+            --error: #ff3e3e;
+            --success: #c4ff00;
+            --border: #222222;
+            --input-bg: #1a1a1d;
+            --section-title: #ffffff;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Rajdhani', 'Roboto', Arial, sans-serif;
+        }
+        
+        body {
+            background: var(--background-gradient);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='grid' width='40' height='40' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 40 0 L 0 0 0 40' fill='none' stroke='%23222222' stroke-width='0.5'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23grid)'/%3E%3C/svg%3E");
+            background-attachment: fixed;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text);
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            color: var(--primary);
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        
+        .progress-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px auto;
+            max-width: 800px;
+            position: relative;
+        }
+        
+        .progress-bar {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #333;
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+        
+        .progress-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: var(--primary);
+            width: 0%;
+            transition: width 0.3s;
+            z-index: 1;
+        }
+        
+        .step {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            font-weight: bold;
+            border: 2px solid #444;
+        }
+        
+        .step.active {
+            background-color: var(--primary);
+            color: black;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 0 4px rgba(196, 255, 0, 0.3);
+        }
+        
+        .step.completed {
+            background-color: var(--primary-dark);
+            color: black;
+        }
+        
+        .step-label {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            background-color: var(--secondary);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 1px solid #222;
+        }
+        
+        .section h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--text);
+            border-bottom: 1px solid #333;
+            padding-bottom: 8px;
+        }
+        
+        .logo-container {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .main-logo {
+            max-width: 300px;
+            height: auto;
+            margin: 0 auto;
+        }
+        
+        .v-icon {
+            width: 24px;
+            height: auto;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        
+        .logo-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            margin-bottom: 5px;
+            display: block;
+            color: var(--text);
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+        
+        .required::after {
+            content: "*";
+            color: var(--primary);
+            margin-left: 3px;
+        }
+        
+        .form-input, 
+        .form-select, 
+        .form-textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--border);
+            color: white;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        
+        .form-input:focus, 
+        .form-select:focus, 
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(196, 255, 0, 0.2);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .radio-group,
+        .checkbox-group {
+            margin-top: 10px;
+        }
+        
+        .radio-option,
+        .checkbox-option {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        
+        .radio-input,
+        .checkbox-input {
+            position: relative;
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            margin-top: 2px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border: 2px solid #555;
+            outline: none;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        
+        .radio-input {
+            border-radius: 50%;
+        }
+        
+        .checkbox-input {
+            border-radius: 3px;
+        }
+        
+        .radio-input:checked,
+        .checkbox-input:checked {
+            border-color: var(--primary);
+            background-color: var(--primary);
+        }
+        
+        .radio-input:checked::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: black;
+        }
+        
+        .checkbox-input:checked::before {
+            content: '✔';
+            position: absolute;
+            color: black;
+            font-size: 12px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .radio-label,
+        .checkbox-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-top: 1px;
+        }
+        
+        .file-upload {
+            margin-top: 10px;
+        }
+        
+        .file-btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #333;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+        
+        .file-btn:hover {
+            background-color: #444;
+        }
+        
+        #fileInput {
+            display: none;
+        }
+        
+        .file-list {
+            margin-top: 10px;
+        }
+        
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 10px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+        
+        .file-item-name {
+            font-size: 14px;
+        }
+        
+        .file-delete {
+            background: none;
+            border: none;
+            color: #ff4444;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .join-discord {
+            background-color: rgba(20, 21, 24, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 3px solid var(--primary);
+        }
+        
+        .join-discord-text {
+            color: white;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .join-discord-button {
+            display: inline-block;
+            background-color: var(--primary);
+            color: black;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            font-size: 14px;
+            margin-left: 15px;
+            font-weight: bold;
+        }
+        
+        .join-discord-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .message-confirm {
+            margin-bottom: 20px;
+        }
+        
+        .message-text {
+            color: white;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+        
+        .example-text {
+            color: #aaa;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+        
+        .go-discord-button {
+            display: inline-block;
+            float: right;
+            background-color: #333;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 0;
+            text-decoration: none;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+        
+        .go-discord-button:hover {
+            background-color: #444;
+        }
+        
+        .verification-box {
+            background-color: rgba(25, 27, 40, 0.8);
+            padding: 20px;
+            border-left: 3px solid var(--primary);
+            border-radius: 0;
+            margin-bottom: 30px;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            cursor: pointer;
+            position: relative;
+            padding-left: 35px;
+        }
+        
+        .checkbox-input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        
+        .checkmark {
+            position: absolute;
+            top: 2px;
+            left: 0;
+            height: 22px;
+            width: 22px;
+            border: 1px solid #555;
+            background-color: transparent;
+        }
+        
+        .checkbox-option:hover .checkmark {
+            border-color: #777;
+        }
+        
+        .checkbox-option input:checked ~ .checkmark {
+            border-color: var(--primary);
+        }
+        
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        
+        .checkbox-option input:checked ~ .checkmark:after {
+            display: block;
+        }
+        
+        .checkbox-option .checkmark:after {
+            left: 7px;
+            top: 3px;
+            width: 6px;
+            height: 12px;
+            border: solid var(--primary);
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        
+        .checkbox-label {
+            font-size: 14px;
+            line-height: 1.4;
+            text-transform: uppercase;
+            color: var(--text);
+        }
+        
+        .submit-button {
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: black;
+            border: none;
+            border-radius: 0;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            text-transform: uppercase;
+            transition: all 0.2s;
+            letter-spacing: 1px;
+            display: inline-block;
+        }
+        
+        .submit-button:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .submit-button:disabled {
+            background-color: #555;
+            color: #999;
+            cursor: not-allowed;
+        }
+        
+        .back-button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 0;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+            text-transform: uppercase;
+            transition: all 0.2s;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            display: inline-block;
+        }
+        
+        .back-button:hover {
+            background-color: #444;
+        }
+        
+        .disclaimer {
+            margin-top: 20px;
+        }
+        
+        .disclaimer-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            margin-bottom: 50px; /* Add more bottom margin to prevent buttons from being cut off */
+        }
+        
+        .nav-button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+        
+        .nav-button:hover {
+            background-color: #444;
+        }
+        
+        .nav-button.next {
+            background-color: var(--primary);
+            color: black;
+        }
+        
+        .nav-button.next:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* Fix for the debug text at the bottom of the page */
+        body::after {
+            content: none !important;
+            display: none !important;
+        }
+        
+        /* Hide any debug information that might appear */
+        .debug-info {
+            display: none !important;
+        }
+        
+        #debugTextRemover {
+            display: block;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background-color: var(--background-dark);
+            z-index: 9999;
+            border-top: 1px solid var(--border);
+        }
+        
+        /* Form error styling */
+        .form-group.error-group input,
+        .form-group.error-group select,
+        .form-group.error-group textarea {
+            border-color: #ff3333;
+            box-shadow: 0 0 3px rgba(255, 51, 51, 0.3);
+        }
+        
+        .error-message {
+            color: #ff3333;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+            font-weight: bold;
+        }
+        
+        .error {
+            border-color: #ff3333 !important;
+        }
+        
+        .checkbox-option.error .checkmark {
+            border-color: #ff3333 !important;
+            box-shadow: 0 0 3px rgba(255, 51, 51, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="padding-bottom: 70px;">
+        <div class="header">
+            <h1>VANGUARD BOOST <span style="color: var(--primary);">APPLICATION</span></h1>
+            <p>Join our team of gaming experts</p>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="step active" id="step1">
+                1
+                <div class="step-label">Contact</div>
+            </div>
+            <div class="step" id="step2">
+                2
+                <div class="step-label">Personal</div>
+            </div>
+        </div>
+        
+        <form id="applicationForm">
+            <!-- Page 1 -->
+            <div class="page active" id="page1">
+                <!-- Contact Information -->
+                <div class="section">
+                    <h2 class="section-title">Contact Information</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label required">Email</label>
+                            <input type="email" class="form-input" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required">Discord</label>
+                            <input type="text" class="form-input" id="discord" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required">Nickname</label>
+                            <input type="text" class="form-input" id="nickname" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Referred By</label>
+                            <input type="text" class="form-input" id="referred">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Service Options -->
+                <div class="section">
+                    <h2 class="section-title">Service Options</h2>
+                    <div class="form-group">
+                        <label class="form-label required">What games do you provide services for?</label>
+                        <select class="form-select" id="game" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="Destiny 2">Destiny 2</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <div id="otherGameInput" style="display: none; margin-top: 10px;">
+                            <input type="text" class="form-input" id="otherGame" placeholder="Specify other game">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">I can dedicate</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="availability" class="radio-input" value="Less than 4hrs/day" required>
+                                <span class="radio-label">Less than 4hrs/day</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="availability" class="radio-input" value="Less than 7hrs/day">
+                                <span class="radio-label">Less than 7hrs/day</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="availability" class="radio-input" value="Full time">
+                                <span class="radio-label">Full time</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="availability" class="radio-input" value="Other">
+                                <span class="radio-label">Other</span>
+                            </label>
+                        </div>
+                        <div id="otherAvailabilityInput" style="display: none; margin-top: 10px;">
+                            <input type="text" class="form-input" id="otherAvailability" placeholder="Specify availability">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Are you applying as a solo booster, a small group, or a team/community?</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="boosterType" class="radio-input" value="Solo" required>
+                                <span class="radio-label">Solo booster</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="boosterType" class="radio-input" value="Small Group">
+                                <span class="radio-label">Small group</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="boosterType" class="radio-input" value="Team/Community">
+                                <span class="radio-label">Team/community</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Regions and Services -->
+                <div class="section">
+                    <h2 class="section-title">Regions and Services</h2>
+                    <div class="form-group">
+                        <label class="form-label required">Select country/region</label>
+                        <select class="form-select" id="country" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="United States">United States</option>
+                            <option value="Canada">Canada</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Germany">Germany</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">SELECT ALL APPLICABLE SERVICES</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="services" class="checkbox-input" value="Piloted">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">PILOTED</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="services" class="checkbox-input" value="Self-play">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">SELF-PLAY</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="services" class="checkbox-input" value="Coaching">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">COACHING</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="services" class="checkbox-input" value="PvP">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">PVP</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="services" class="checkbox-input" value="PvE">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">PVE</span>
+                            </label>
+                        </div>
+                        <div class="error-message" id="servicesError">Please select at least one service</div>
+                    </div>
+                </div>
+                
+                <!-- Platforms -->
+                <div class="section">
+                    <h2 class="section-title">Platforms</h2>
+                    <div class="form-group">
+                        <label class="form-label required">SPECIFY THE PLATFORMS YOU PROVIDE SERVICES ON</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="platforms" class="checkbox-input" value="Xbox">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">XBOX</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="platforms" class="checkbox-input" value="PC">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">PC</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="platforms" class="checkbox-input" value="PlayStation">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">PLAYSTATION</span>
+                            </label>
+                        </div>
+                        <div class="error-message" id="platformsError">Please select at least one platform</div>
+                    </div>
+                </div>
+                
+                <!-- Gaming Experience -->
+                <div class="section">
+                    <h2 class="section-title">Gaming Experience</h2>
+                    <div class="form-group">
+                        <label class="form-label required">Destiny Tracker: Link to game profiles like Raider.io, Tracker.gg, etc.</label>
+                        <input type="text" class="form-input" id="tracker" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Explain your gaming experience, achievements, and any previous marketplace work</label>
+                        <textarea class="form-textarea" id="experience" required></textarea>
+                    </div>
+                </div>
+                
+                <!-- Verification -->
+                <div class="section">
+                    <h2 class="section-title">Verification</h2>
+                    <div class="form-group">
+                        <label class="form-label required">Upload screenshots to verify your gaming profile and completed orders</label>
+                        <div class="file-upload">
+                            <label for="fileInput" class="file-btn">Add Files</label>
+                            <input type="file" id="fileInput" accept="image/*" multiple>
+                        </div>
+                        <div class="file-list" id="fileList"></div>
+                    </div>
+                </div>
+                
+                <!-- VPN & Streaming -->
+                <div class="section">
+                    <h2 class="section-title">VPN & Streaming</h2>
+                    <div class="form-group">
+                        <label class="form-label required">Do you use VPN for piloted services?</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="vpn" class="radio-input" value="Yes" required>
+                                <span class="radio-label">Yes</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="vpn" class="radio-input" value="No">
+                                <span class="radio-label">No</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Are you able to stream your services?</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="streaming" class="radio-input" value="Yes" required>
+                                <span class="radio-label">Yes</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="streaming" class="radio-input" value="No">
+                                <span class="radio-label">No</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="navigation">
+                    <div></div>
+                    <button type="button" class="nav-button next" id="nextButton">CONTINUE <span style="margin-left: 5px;">→</span></button>
+                </div>
+            </div>
+            
+            <!-- Page 2 -->
+            <div class="page" id="page2">
+                <!-- Personal Details -->
+                <div class="section">
+                    <h2 class="section-title">Personal Details</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label required">First Name</label>
+                            <input type="text" class="form-input" id="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required">Last Name</label>
+                            <input type="text" class="form-input" id="lastName" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Are you 18+?</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="age" class="radio-input" value="Yes" required>
+                                <span class="radio-label">Yes</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="age" class="radio-input" value="No">
+                                <span class="radio-label">No</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">How did you hear about us?</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="hearAbout" class="radio-input" value="Facebook">
+                                <span class="radio-label">Facebook</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="hearAbout" class="radio-input" value="Instagram">
+                                <span class="radio-label">Instagram</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="hearAbout" class="radio-input" value="Discord">
+                                <span class="radio-label">Discord</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="hearAbout" class="radio-input" value="Colleague/Friend">
+                                <span class="radio-label">A colleague/friend</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="hearAbout" class="radio-input" value="Other">
+                                <span class="radio-label">Other</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Tell us something about yourself</label>
+                        <textarea class="form-textarea" id="aboutYourself" placeholder="Add here..." required></textarea>
+                    </div>
+                </div>
+                
+                <!-- Join Discord -->
+                <div class="section">
+                    <h2 class="section-title">JOIN VANGUARD BOOST DISCORD</h2>
+                    <div class="join-discord">
+                        <p class="join-discord-text">YOU ARE INVITED TO JOIN THE RECRUITING DISCORD SERVER.</p>
+                        <div style="display: flex; align-items: center; margin-top: 15px;">
+                            <label class="checkbox-option" style="margin: 0; padding-left: 35px; position: relative;">
+                                <input type="checkbox" class="checkbox-input" id="joinedDiscord">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">I'VE JOINED THE SERVER.</span>
+                            </label>
+                            <a href="#" class="join-discord-button">JOIN NOW</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Message to Confirm -->
+                <div class="section">
+                    <h2 class="section-title">MESSAGE TO CONFIRM</h2>
+                    <div class="message-confirm">
+                        <p class="message-text">SEND A FRIEND REQUEST TO @VANGUARDRECRUITER ON DISCORD AND NOTIFY THEM OF YOUR SUBMITTED APPLICATION.</p>
+                        <p class="example-text">EXAMPLE: "HELLO! I'VE JUST SENT AN APPLICATION TO BECOME A BOOSTER."</p>
+                        <a href="#" class="go-discord-button">GO TO DISCORD</a>
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+                
+                <!-- Secure Verification -->
+                <div class="section">
+                    <h2 class="section-title">SECURE VERIFICATION</h2>
+                    <div class="verification-box">
+                        <label class="checkbox-option">
+                            <input type="checkbox" class="checkbox-input" id="verification" required>
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label">I AGREE TO THE THIRD-PARTY VERIFICATION PROCESS</span>
+                        </label>
+                        
+                        <label class="checkbox-option" style="margin-top: 15px;">
+                            <input type="checkbox" class="checkbox-input" id="fraudAgreement" required>
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label">ATTEMPTS AT VERIFICATION FRAUD WILL RESULT IN APPLICATION REJECTION! <strong>I UNDERSTAND AND AGREE.</strong></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Submit Section -->
+                <div style="margin-top: 20px; margin-bottom: 30px; text-align: center;">
+                    <button type="submit" class="submit-button" id="submitButton" disabled>SUBMIT APPLICATION</button>
+                    
+                    <div class="checkbox-group" style="margin-top: 25px;">
+                        <label class="checkbox-option">
+                            <input type="checkbox" class="checkbox-input" id="submissionAgreement" required>
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label">CLICKING THE "SUBMIT" BUTTON SENDS THE APPLICATION FOR CONSIDERATION, WHICH MAY TAKE UP TO 7 DAYS OR LONGER. IF APPROVED, YOU WILL BE CONTACTED VIA DISCORD. <strong>I'VE READ THIS INFORMATION THOROUGHLY.</strong></span>
+                        </label>
+                        
+                        <label class="checkbox-option" style="margin-top: 20px;">
+                            <input type="checkbox" class="checkbox-input" id="missingInfoAgreement" required>
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label">IF ANY FORM FIELDS ARE FILLED OUT INCORRECTLY OR MISSING, THE APPLICATION MAY BE DECLINED WITHOUT FURTHER EXPLANATION. <strong>I UNDERSTAND.</strong></span>
+                        </label>
+                        
+                        <label class="checkbox-option" style="margin-top: 20px;">
+                            <input type="checkbox" class="checkbox-input" id="captcha" required>
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label">I AM NOT A ROBOT.</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="navigation">
+                    <button type="button" class="back-button" id="backButton">BACK</button>
+                    <div></div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM loaded - initializing form");
+            
+            // Initialize variables - using proper variable declarations
+            const page1 = document.getElementById('page1');
+            const page2 = document.getElementById('page2');
+            const step1 = document.getElementById('step1');
+            const step2 = document.getElementById('step2');
+            const progressFill = document.getElementById('progressFill');
+            const nextButton = document.getElementById('nextButton');
+            const backButton = document.getElementById('backButton');
+            const submitButton = document.getElementById('submitButton');
+            
+            // Initialize submit button as disabled
+            if (submitButton) {
+                submitButton.disabled = true;
+            }
+            
+            // Hide any debug output that might be showing
+            const debugElements = document.querySelectorAll('body > *:not(.container)');
+            debugElements.forEach(function(element) {
+                if (element.tagName !== 'SCRIPT' && element.tagName !== 'STYLE') {
+                    element.style.display = 'none';
+                }
+            });
+            
+            // 1. Fix for game selection dropdown
+            const gameSelect = document.getElementById('game');
+            const otherGameInput = document.getElementById('otherGameInput');
+            
+            if (gameSelect && otherGameInput) {
+                gameSelect.addEventListener('change', function() {
+                    console.log("Game selection changed to:", this.value);
+                    if (this.value === 'Other') {
+                        otherGameInput.style.display = 'block';
+                    } else {
+                        otherGameInput.style.display = 'none';
+                    }
+                });
+            }
+            
+            // 2. Fix for availability radio buttons
+            const availabilityRadios = document.querySelectorAll('input[name="availability"]');
+            const otherAvailabilityInput = document.getElementById('otherAvailabilityInput');
+            
+            availabilityRadios.forEach(function(radio) {
+                radio.addEventListener('change', function() {
+                    console.log("Availability changed to:", this.value);
+                    if (this.value === 'Other') {
+                        otherAvailabilityInput.style.display = 'block';
+                    } else {
+                        otherAvailabilityInput.style.display = 'none';
+                    }
+                });
+            });
+            
+            // 3. Fix for file upload with delete functionality and 2 file maximum
+            const fileInput = document.getElementById('fileInput');
+            const fileList = document.getElementById('fileList');
+            const MAX_FILES = 2;
+            let uploadedFiles = [];
+            
+            fileInput.addEventListener('change', function(e) {
+                console.log("File input changed, files selected:", this.files.length);
+                
+                if (this.files.length > 0) {
+                    // Check if we've already reached the maximum
+                    if (uploadedFiles.length >= MAX_FILES) {
+                        alert("Maximum of " + MAX_FILES + " files allowed");
+                        return;
+                    }
+                    
+                    const file = this.files[0];
+                    
+                    // Create a new file object with a unique ID
+                    const fileObj = {
+                        id: Date.now(),
+                        name: file.name,
+                        file: file
+                    };
+                    
+                    // Add to our array
+                    uploadedFiles.push(fileObj);
+                    
+                    // Update the UI
+                    updateFileListUI();
+                    
+                    // Reset the file input
+                    this.value = '';
+                }
+            });
+            
+            function updateFileListUI() {
+                console.log("Updating file list UI with", uploadedFiles.length, "files");
+                
+                // Clear the current list
+                fileList.innerHTML = '';
+                
+                // Add each file to the list
+                uploadedFiles.forEach(function(fileObj) {
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    
+                    const fileName = document.createElement('div');
+                    fileName.className = 'file-item-name';
+                    fileName.textContent = fileObj.name;
+                    
+                    const deleteButton = document.createElement('button');
+                    deleteButton.className = 'file-delete';
+                    deleteButton.textContent = '×';
+                    deleteButton.setAttribute('data-id', fileObj.id);
+                    deleteButton.addEventListener('click', function() {
+                        const fileId = this.getAttribute('data-id');
+                        deleteFile(fileId);
+                    });
+                    
+                    fileItem.appendChild(fileName);
+                    fileItem.appendChild(deleteButton);
+                    fileList.appendChild(fileItem);
+                });
+                
+                // Disable the file input if we've reached the maximum
+                if (uploadedFiles.length >= MAX_FILES) {
+                    fileInput.disabled = true;
+                    document.querySelector('.file-btn').style.opacity = '0.5';
+                } else {
+                    fileInput.disabled = false;
+                    document.querySelector('.file-btn').style.opacity = '1';
+                }
+            }
+            
+            function deleteFile(fileId) {
+                console.log("Deleting file with ID:", fileId);
+                
+                // Find the index of the file to delete
+                const index = uploadedFiles.findIndex(file => file.id == fileId);
+                
+                if (index !== -1) {
+                    // Remove the file from the array
+                    uploadedFiles.splice(index, 1);
+                    
+                    // Update the UI
+                    updateFileListUI();
+                }
+            }
+            
+            // 4. Fix for page navigation with validation
+            if (nextButton) {
+                nextButton.addEventListener('click', function() {
+                    console.log("Next button clicked - validating fields");
+                    
+                    // Validate all required fields on page 1
+                    if (validatePage(page1)) {
+                        // Hide page 1, show page 2
+                        page1.style.display = 'none';
+                        page2.style.display = 'block';
+                        
+                        // Update steps
+                        step1.classList.remove('active');
+                        step1.classList.add('completed');
+                        step2.classList.add('active');
+                        
+                        // Update progress bar
+                        progressFill.style.width = '100%';
+                        
+                        // Set up page 2 validation
+                        setupPage2Validation();
+                        
+                        // Scroll to top
+                        window.scrollTo(0, 0);
+                    } else {
+                        alert("Please fill in all required fields before proceeding.");
+                    }
+                });
+            }
+            
+            if (backButton) {
+                backButton.addEventListener('click', function() {
+                    console.log("Back button clicked");
+                    
+                    // Hide page 2, show page 1
+                    page2.style.display = 'none';
+                    page1.style.display = 'block';
+                    
+                    // Update steps
+                    step2.classList.remove('active');
+                    step1.classList.remove('completed');
+                    step1.classList.add('active');
+                    
+                    // Update progress bar
+                    progressFill.style.width = '0%';
+                    
+                    // Scroll to top
+                    window.scrollTo(0, 0);
+                });
+            }
+            
+            // Function to check if all required fields on page 2 are valid
+            function checkPage2Fields() {
+                // Return early if page2 is not defined
+                if (!page2) return false;
+                
+                const requiredInputs = page2.querySelectorAll('input[required], select[required], textarea[required]');
+                let allValid = true;
+                
+                // Check all required form elements
+                requiredInputs.forEach(function(input) {
+                    if (input.type === 'checkbox' && !input.checked) {
+                        allValid = false;
+                    } else if (input.type === 'radio') {
+                        // For radio buttons, check if any in the group is checked
+                        const name = input.name;
+                        const radioGroup = page2.querySelectorAll(`input[type="radio"][name="${name}"]`);
+                        let anyChecked = false;
+                        
+                        radioGroup.forEach(function(radio) {
+                            if (radio.checked) {
+                                anyChecked = true;
+                            }
+                        });
+                        
+                        if (!anyChecked) {
+                            allValid = false;
+                        }
+                    } else if (!input.value || input.value.trim() === '') {
+                        allValid = false;
+                    }
+                });
+                
+                return allValid;
+            }
+            
+            // Function to update submit button state
+            function updateSubmitButtonState() {
+                if (submitButton) {
+                    submitButton.disabled = !checkPage2Fields();
+                }
+            }
+            
+            // Add event listeners to all inputs, selects, and textareas on page 2
+            function setupPage2Validation() {
+                const allInputs = page2.querySelectorAll('input, select, textarea');
+                
+                allInputs.forEach(function(input) {
+                    input.addEventListener('change', updateSubmitButtonState);
+                    input.addEventListener('input', updateSubmitButtonState);
+                    input.addEventListener('blur', updateSubmitButtonState);
+                });
+                
+                // Initial check
+                updateSubmitButtonState();
+            }
+            
+            // Set up page 2 validation when navigating to page 2
+            if (nextButton) {
+                nextButton.addEventListener('click', function() {
+                    // If we successfully navigate to page 2, set up validation
+                    if (validatePage(page1)) {
+                        setupPage2Validation();
+                    }
+                });
+            }
+            
+            // Email field validation with specific error messages
+            const emailField = document.getElementById('email');
+            if (emailField) {
+                emailField.addEventListener('blur', function() {
+                    const emailError = document.getElementById('emailError');
+                    if (!this.value.trim()) {
+                        // Empty email field
+                        this.classList.add('error');
+                        if (emailError) {
+                            emailError.textContent = "Please enter your email address";
+                            emailError.style.display = 'block';
+                        }
+                    } else if (!isValidEmail(this.value)) {
+                        // Invalid email format
+                        this.classList.add('error');
+                        if (emailError) {
+                            emailError.textContent = "Please enter a valid email address";
+                            emailError.style.display = 'block';
+                        }
+                    } else {
+                        // Valid email
+                        this.classList.remove('error');
+                        if (emailError) {
+                            emailError.style.display = 'none';
+                        }
+                    }
+                });
+            }
+            
+            // Add event listeners to clear error styling when interacting with a field
+            function setupErrorClearingBehavior() {
+                // Get all form elements in the entire form
+                const allFormElements = document.querySelectorAll('input, select, textarea');
+                
+                allFormElements.forEach(function(element) {
+                    // For text inputs, selects, and textareas, use input event
+                    if (element.type !== 'checkbox' && element.type !== 'radio') {
+                        element.addEventListener('input', function() {
+                            removeError(this);
+                        });
+                    }
+                    
+                    // For all form elements, use change event
+                    element.addEventListener('change', function() {
+                        removeError(this);
+                        
+                        // For radio buttons, clear error for all radios in the same group
+                        if (element.type === 'radio') {
+                            const radioButtons = document.querySelectorAll(`input[type="radio"][name="${element.name}"]`);
+                            radioButtons.forEach(function(radio) {
+                                removeError(radio);
+                            });
+                        }
+                    });
+                });
+            }
+            
+            // Call this when the document is loaded
+            setupErrorClearingBehavior();
+            
+        // Hack to remove debug text - since other methods failed, we'll cover it up
+        const debugBlocker = document.createElement('div');
+        debugBlocker.id = 'debugTextRemover';
+        document.body.appendChild(debugBlocker);
+        
+        // Form submission with validation
+        const applicationForm = document.getElementById('applicationForm');
+        if (applicationForm) {
+            applicationForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log("Form submitted - validating fields");
+                
+                // Validate all required fields on page 2
+                if (validatePage(page2)) {
+                    console.log("Form validation successful - processing submission");
+                    
+                    // Here you would typically process the form data and send it to a server
+                    alert("Application submitted successfully!");
+                } else {
+                    // Show more detailed error message
+                    alert("Please fill in all required fields before submitting. Missing fields have been highlighted in red.");
+                    
+                    // Find first error field and scroll to it
+                    const firstErrorField = page2.querySelector('.error');
+                    if (firstErrorField) {
+                        firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
+            });
+        }
+            function validatePage(page) {
+                let isValid = true;
+                const requiredElements = page.querySelectorAll('input[required], select[required], textarea[required]');
+                
+                requiredElements.forEach(function(element) {
+                    if (!validateElement(element)) {
+                        isValid = false;
+                    }
+                });
+                
+                // Special validation for checkboxes grouped with the same name (like services[] and platforms[])
+                if (page === page1) {
+                    // Validate services checkboxes
+                    const serviceCheckboxes = page.querySelectorAll('input[name="services"]');
+                    let serviceChecked = false;
+                    
+                    serviceCheckboxes.forEach(function(checkbox) {
+                        if (checkbox.checked) {
+                            serviceChecked = true;
+                        }
+                    });
+                    
+                    if (!serviceChecked && serviceCheckboxes.length > 0) {
+                        isValid = false;
+                        highlightError(serviceCheckboxes[0].closest('.form-group'), 'Please select at least one service');
+                    }
+                    
+                    // Validate platform checkboxes
+                    const platformCheckboxes = page.querySelectorAll('input[name="platforms"]');
+                    let platformChecked = false;
+                    
+                    platformCheckboxes.forEach(function(checkbox) {
+                        if (checkbox.checked) {
+                            platformChecked = true;
+                        }
+                    });
+                    
+                    if (!platformChecked && platformCheckboxes.length > 0) {
+                        isValid = false;
+                        highlightError(platformCheckboxes[0].closest('.form-group'), 'Please select at least one platform');
+                    }
+                }
+                
+                return isValid;
+            }
+            
+            function validateElement(element) {
+                // Skip validation if element is hidden (like in a collapsed section)
+                if (element.offsetParent === null && !element.classList.contains('checkbox-input')) {
+                    return true;
+                }
+                
+                let isValid = true;
+                
+                if (element.type === 'checkbox') {
+                    if (element.required && !element.checked) {
+                        isValid = false;
+                    }
+                } else if (element.type === 'radio') {
+                    // For radio buttons, check if any radio with same name is checked
+                    const radioGroup = document.querySelectorAll(`input[type="radio"][name="${element.name}"]`);
+                    let radioChecked = false;
+                    
+                    radioGroup.forEach(function(radio) {
+                        if (radio.checked) {
+                            radioChecked = true;
+                        }
+                    });
+                    
+                    if (!radioChecked) {
+                        isValid = false;
+                    }
+                } else if (element.tagName === 'SELECT') {
+                    if (element.value === '' || element.value === null) {
+                        isValid = false;
+                    }
+                } else {
+                    if (!element.value.trim()) {
+                        isValid = false;
+                    }
+                    
+                    // Additional validation for specific types
+                    if (element.type === 'email' && element.value) {
+                        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailPattern.test(element.value)) {
+                            isValid = false;
+                        }
+                    }
+                }
+                
+                if (!isValid) {
+                    highlightError(element);
+                } else {
+                    removeError(element);
+                }
+                
+                return isValid;
+            }
+            
+            function highlightError(element, message) {
+                // If element is inside a form-group, highlight the entire group
+                const formGroup = element.closest('.form-group');
+                if (formGroup) {
+                    formGroup.classList.add('error-group');
+                    
+                    // Add error message if provided
+                    if (message) {
+                        let errorMsg = formGroup.querySelector('.error-message');
+                        if (!errorMsg) {
+                            errorMsg = document.createElement('div');
+                            errorMsg.className = 'error-message';
+                            formGroup.appendChild(errorMsg);
+                        }
+                        errorMsg.textContent = message;
+                        errorMsg.style.display = 'block';
+                    } else {
+                        // Add generic error message if none provided
+                        let errorMsg = formGroup.querySelector('.error-message');
+                        if (!errorMsg) {
+                            errorMsg = document.createElement('div');
+                            errorMsg.className = 'error-message';
+                            formGroup.appendChild(errorMsg);
+                        }
+                        errorMsg.textContent = "This field is required";
+                        errorMsg.style.display = 'block';
+                    }
+                }
+                
+                // For checkbox options, also add error class to the label container
+                const checkboxOption = element.closest('.checkbox-option');
+                if (checkboxOption) {
+                    checkboxOption.classList.add('error');
+                }
+                
+                // Add error class to the element itself
+                element.classList.add('error');
+                
+                // We don't auto-scroll here to avoid jumpy behavior during form validation
+                // Will scroll only after full validation is complete
+            }
+            
+            function removeError(element) {
+                // Remove error class from form group
+                const formGroup = element.closest('.form-group');
+                if (formGroup) {
+                    formGroup.classList.remove('error-group');
+                    
+                    // Hide error message
+                    const errorMsg = formGroup.querySelector('.error-message');
+                    if (errorMsg) {
+                        errorMsg.style.display = 'none';
+                    }
+                }
+                
+                // Remove error class from element
+                element.classList.remove('error');
+            }
+        });
+    </script>
+</body>
+</html>
