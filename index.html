@@ -6,20 +6,16 @@
   <title>Vanguard Boost Application</title>
   <style>
     :root {
-      --primary: #c4ff00; /* Brighter neon green to match the app */
-      --primary-glow: rgba(196, 255, 0, 0.5);
+      --primary: #c4ff00; /* Brighter neon green */
       --primary-dark: #a2d600;
-      --secondary: #101114; /* Darker blue-black */
-      --background-dark: #0a0a0d; /* Very dark blue-black */
+      --secondary: #101114; 
+      --background-dark: #0a0a0d; 
       --background-gradient: linear-gradient(to bottom, #101114, #0a0a0d);
-      --card: #141518;
-      --text: #ffffff;
+      --text: #ffffff; 
       --text-secondary: #b0b0b0;
       --error: #ff3e3e;
-      --success: #c4ff00;
       --border: #222222;
       --input-bg: #1a1a1d;
-      --section-title: #ffffff;
     }
 
     * {
@@ -160,31 +156,6 @@
       color: var(--text);
       border-bottom: 1px solid #333;
       padding-bottom: 8px;
-    }
-
-    .logo-container {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    .main-logo {
-      max-width: 300px;
-      height: auto;
-      margin: 0 auto;
-    }
-
-    .v-icon {
-      width: 24px;
-      height: auto;
-      margin-right: 8px;
-      vertical-align: middle;
-    }
-
-    .logo-header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 30px;
     }
 
     .form-grid {
@@ -358,147 +329,6 @@
       font-size: 16px;
     }
 
-    .join-discord {
-      background-color: rgba(20, 21, 24, 0.8);
-      padding: 20px;
-      border-radius: 8px;
-      margin-bottom: 30px;
-      border-left: 3px solid var(--primary);
-    }
-
-    .join-discord-text {
-      color: white;
-      margin-bottom: 15px;
-      text-transform: uppercase;
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    .join-discord-button {
-      display: inline-block;
-      background-color: var(--primary);
-      color: black;
-      padding: 10px 20px;
-      border-radius: 4px;
-      text-decoration: none;
-      transition: all 0.2s;
-      text-transform: uppercase;
-      font-size: 14px;
-      margin-left: 15px;
-      font-weight: bold;
-    }
-
-    .join-discord-button:hover {
-      background-color: var(--primary-dark);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .message-confirm {
-      margin-bottom: 20px;
-    }
-
-    .message-text {
-      color: white;
-      margin-bottom: 15px;
-      text-transform: uppercase;
-      font-size: 14px;
-    }
-
-    .example-text {
-      color: #aaa;
-      margin-bottom: 15px;
-      text-transform: uppercase;
-      font-size: 14px;
-    }
-
-    .go-discord-button {
-      display: inline-block;
-      float: right;
-      background-color: #333;
-      color: white;
-      padding: 8px 20px;
-      border-radius: 0;
-      text-decoration: none;
-      transition: all 0.2s;
-      text-transform: uppercase;
-      font-size: 14px;
-    }
-
-    .go-discord-button:hover {
-      background-color: #444;
-    }
-
-    .verification-box {
-      background-color: rgba(25, 27, 40, 0.8);
-      padding: 20px;
-      border-left: 3px solid var(--primary);
-      border-radius: 0;
-      margin-bottom: 30px;
-    }
-
-    .checkbox-option {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 15px;
-      cursor: pointer;
-      position: relative;
-      padding-left: 35px;
-    }
-
-    .checkbox-input {
-      position: absolute;
-      opacity: 0;
-      cursor: pointer;
-      height: 0;
-      width: 0;
-    }
-
-    .checkmark {
-      position: absolute;
-      top: 2px;
-      left: 0;
-      height: 22px;
-      width: 22px;
-      border: 1px solid #555;
-      background-color: transparent;
-    }
-
-    .checkbox-option:hover .checkmark {
-      border-color: #777;
-    }
-
-    .checkbox-option input:checked ~ .checkmark {
-      border-color: var(--primary);
-    }
-
-    .checkmark:after {
-      content: "";
-      position: absolute;
-      display: none;
-    }
-
-    .checkbox-option input:checked ~ .checkmark:after {
-      display: block;
-    }
-
-    .checkbox-option .checkmark:after {
-      left: 7px;
-      top: 3px;
-      width: 6px;
-      height: 12px;
-      border: solid var(--primary);
-      border-width: 0 2px 2px 0;
-      transform: rotate(45deg);
-    }
-
-    .checkbox-label {
-      font-size: 14px;
-      line-height: 1.4;
-      text-transform: uppercase;
-      color: var(--text);
-    }
-
     .submit-button {
       padding: 12px 30px;
       background-color: var(--primary);
@@ -544,20 +374,11 @@
       background-color: #444;
     }
 
-    .disclaimer {
-      margin-top: 20px;
-    }
-
-    .disclaimer-text {
-      font-size: 14px;
-      color: var(--text-secondary);
-    }
-
     .navigation {
       display: flex;
       justify-content: space-between;
       margin-top: 20px;
-      margin-bottom: 50px; /* Add more bottom margin to prevent buttons from being cut off */
+      margin-bottom: 50px; /* more bottom margin */
     }
 
     .nav-button {
@@ -585,17 +406,12 @@
       background-color: var(--primary-dark);
     }
 
-    /* Fix for the debug text at the bottom of the page */
-    body::after {
+    /* Hide any debug text that might appear */
+    body::after,
+    .debug-info {
       content: none !important;
       display: none !important;
     }
-
-    /* Hide any debug information that might appear */
-    .debug-info {
-      display: none !important;
-    }
-
     #debugTextRemover {
       display: block;
       position: fixed;
@@ -612,12 +428,12 @@
     .form-group.error-group input,
     .form-group.error-group select,
     .form-group.error-group textarea {
-      border-color: #ff3333;
+      border-color: var(--error);
       box-shadow: 0 0 3px rgba(255, 51, 51, 0.3);
     }
 
     .error-message {
-      color: #ff3333;
+      color: var(--error);
       font-size: 13px;
       margin-top: 5px;
       display: none;
@@ -625,11 +441,11 @@
     }
 
     .error {
-      border-color: #ff3333 !important;
+      border-color: var(--error) !important;
     }
 
     .checkbox-option.error .checkmark {
-      border-color: #ff3333 !important;
+      border-color: var(--error) !important;
       box-shadow: 0 0 3px rgba(255, 51, 51, 0.3);
     }
   </style>
@@ -656,8 +472,8 @@
     </div>
 
     <!-- 
-      ADDITIONAL HIDDEN INPUT: 
-      "redirect" => Tells Netlify to redirect to thank-you.html 
+      Using "name" for every field ensures Netlify captures them in CSV.
+      Also includes a "redirect" hidden field for the custom thank-you page.
     -->
     <form
       id="applicationForm"
@@ -678,19 +494,42 @@
           <div class="form-grid">
             <div class="form-group">
               <label class="form-label required">Email</label>
-              <input type="email" class="form-input" id="email" required />
+              <input 
+                type="email" 
+                class="form-input" 
+                id="email" 
+                name="email" 
+                required 
+              />
             </div>
             <div class="form-group">
               <label class="form-label required">Discord</label>
-              <input type="text" class="form-input" id="discord" required />
+              <input 
+                type="text" 
+                class="form-input" 
+                id="discord" 
+                name="discord"
+                required 
+              />
             </div>
             <div class="form-group">
               <label class="form-label required">Nickname</label>
-              <input type="text" class="form-input" id="nickname" required />
+              <input 
+                type="text" 
+                class="form-input" 
+                id="nickname"
+                name="nickname"
+                required 
+              />
             </div>
             <div class="form-group">
               <label class="form-label">Referred By</label>
-              <input type="text" class="form-input" id="referred" />
+              <input 
+                type="text" 
+                class="form-input" 
+                id="referred" 
+                name="referred"
+              />
             </div>
           </div>
         </div>
@@ -700,16 +539,22 @@
           <h2 class="section-title">Service Options</h2>
           <div class="form-group">
             <label class="form-label required">What games do you provide services for?</label>
-            <select class="form-select" id="game" required>
+            <select 
+              class="form-select" 
+              id="game" 
+              name="game"
+              required
+            >
               <option value="" disabled selected>Select</option>
               <option value="Destiny 2">Destiny 2</option>
               <option value="Other">Other</option>
             </select>
             <div id="otherGameInput" style="display: none; margin-top: 10px;">
-              <input
-                type="text"
-                class="form-input"
+              <input 
+                type="text" 
+                class="form-input" 
                 id="otherGame"
+                name="otherGame"
                 placeholder="Specify other game"
               />
             </div>
@@ -719,82 +564,81 @@
             <label class="form-label required">I can dedicate</label>
             <div class="radio-group">
               <label class="radio-option">
-                <input
-                  type="radio"
-                  name="availability"
-                  class="radio-input"
+                <input 
+                  type="radio" 
+                  name="availability" 
+                  class="radio-input" 
                   value="Less than 4hrs/day"
-                  required
+                  required 
                 />
                 <span class="radio-label">Less than 4hrs/day</span>
               </label>
               <label class="radio-option">
-                <input
-                  type="radio"
-                  name="availability"
-                  class="radio-input"
+                <input 
+                  type="radio" 
+                  name="availability" 
+                  class="radio-input" 
                   value="Less than 7hrs/day"
                 />
                 <span class="radio-label">Less than 7hrs/day</span>
               </label>
               <label class="radio-option">
-                <input
-                  type="radio"
-                  name="availability"
-                  class="radio-input"
+                <input 
+                  type="radio" 
+                  name="availability" 
+                  class="radio-input" 
                   value="Full time"
                 />
                 <span class="radio-label">Full time</span>
               </label>
               <label class="radio-option">
-                <input
-                  type="radio"
-                  name="availability"
-                  class="radio-input"
+                <input 
+                  type="radio" 
+                  name="availability" 
+                  class="radio-input" 
                   value="Other"
                 />
                 <span class="radio-label">Other</span>
               </label>
             </div>
             <div id="otherAvailabilityInput" style="display: none; margin-top: 10px;">
-              <input
-                type="text"
-                class="form-input"
+              <input 
+                type="text" 
+                class="form-input" 
                 id="otherAvailability"
+                name="otherAvailability"
                 placeholder="Specify availability"
               />
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label required"
-              >Are you applying as a solo booster, a small group, or a team/community?</label
-            >
+            <label class="form-label required">Are you applying as a solo booster, a small group, or a team/community?</label>
             <div class="radio-group">
               <label class="radio-option">
-                <input
-                  type="radio"
-                  name="boosterType"
-                  class="radio-input"
+                <input 
+                  type="radio" 
+                  name="boosterType" 
+                  class="radio-input" 
                   value="Solo"
-                  required
+                  required 
                 />
                 <span class="radio-label">Solo booster</span>
               </label>
               <label class="radio-option">
-                <input
-                  type="radio"
-                  name="boosterType"
-                  class="radio-input"
+                <input 
+                  type="radio" 
+                  name="boosterType" 
+                  class="radio-input" 
                   value="Small Group"
                 />
                 <span class="radio-label">Small group</span>
               </label>
               <label class="radio-option">
-                <input
-                  type="radio"
-                  name="boosterType"
-                  class="radio-input"
+                <input 
+                  type="radio" 
+                  name="boosterType" 
+                  class="radio-input" 
                   value="Team/Community"
                 />
                 <span class="radio-label">Team/community</span>
@@ -808,7 +652,12 @@
           <h2 class="section-title">Regions and Services</h2>
           <div class="form-group">
             <label class="form-label required">Select country/region</label>
-            <select class="form-select" id="country" required>
+            <select 
+              class="form-select" 
+              id="country"
+              name="country"
+              required
+            >
               <option value="" disabled selected>Select</option>
               <option value="United States">United States</option>
               <option value="Canada">Canada</option>
@@ -823,50 +672,50 @@
             <label class="form-label required">SELECT ALL APPLICABLE SERVICES</label>
             <div class="checkbox-group">
               <label class="checkbox-option">
-                <input
-                  type="checkbox"
-                  name="services"
-                  class="checkbox-input"
+                <input 
+                  type="checkbox" 
+                  name="services" 
+                  class="checkbox-input" 
                   value="Piloted"
                 />
                 <span class="checkmark"></span>
                 <span class="checkbox-label">PILOTED</span>
               </label>
               <label class="checkbox-option">
-                <input
-                  type="checkbox"
-                  name="services"
-                  class="checkbox-input"
+                <input 
+                  type="checkbox" 
+                  name="services" 
+                  class="checkbox-input" 
                   value="Self-play"
                 />
                 <span class="checkmark"></span>
                 <span class="checkbox-label">SELF-PLAY</span>
               </label>
               <label class="checkbox-option">
-                <input
-                  type="checkbox"
-                  name="services"
-                  class="checkbox-input"
+                <input 
+                  type="checkbox" 
+                  name="services" 
+                  class="checkbox-input" 
                   value="Coaching"
                 />
                 <span class="checkmark"></span>
                 <span class="checkbox-label">COACHING</span>
               </label>
               <label class="checkbox-option">
-                <input
-                  type="checkbox"
-                  name="services"
-                  class="checkbox-input"
+                <input 
+                  type="checkbox" 
+                  name="services" 
+                  class="checkbox-input" 
                   value="PvP"
                 />
                 <span class="checkmark"></span>
                 <span class="checkbox-label">PVP</span>
               </label>
               <label class="checkbox-option">
-                <input
-                  type="checkbox"
-                  name="services"
-                  class="checkbox-input"
+                <input 
+                  type="checkbox" 
+                  name="services" 
+                  class="checkbox-input" 
                   value="PvE"
                 />
                 <span class="checkmark"></span>
@@ -881,35 +730,33 @@
         <div class="section">
           <h2 class="section-title">Platforms</h2>
           <div class="form-group">
-            <label class="form-label required"
-              >SPECIFY THE PLATFORMS YOU PROVIDE SERVICES ON</label
-            >
+            <label class="form-label required">SPECIFY THE PLATFORMS YOU PROVIDE SERVICES ON</label>
             <div class="checkbox-group">
               <label class="checkbox-option">
-                <input
-                  type="checkbox"
-                  name="platforms"
-                  class="checkbox-input"
+                <input 
+                  type="checkbox" 
+                  name="platforms" 
+                  class="checkbox-input" 
                   value="Xbox"
                 />
                 <span class="checkmark"></span>
                 <span class="checkbox-label">XBOX</span>
               </label>
               <label class="checkbox-option">
-                <input
-                  type="checkbox"
-                  name="platforms"
-                  class="checkbox-input"
+                <input 
+                  type="checkbox" 
+                  name="platforms" 
+                  class="checkbox-input" 
                   value="PC"
                 />
                 <span class="checkmark"></span>
                 <span class="checkbox-label">PC</span>
               </label>
               <label class="checkbox-option">
-                <input
-                  type="checkbox"
-                  name="platforms"
-                  class="checkbox-input"
+                <input 
+                  type="checkbox" 
+                  name="platforms" 
+                  class="checkbox-input" 
                   value="PlayStation"
                 />
                 <span class="checkmark"></span>
@@ -924,17 +771,27 @@
         <div class="section">
           <h2 class="section-title">Gaming Experience</h2>
           <div class="form-group">
-            <label class="form-label required"
-              >Destiny Tracker: Link to game profiles like Raider.io, Tracker.gg, etc.</label
-            >
-            <input type="text" class="form-input" id="tracker" required />
+            <label class="form-label required">
+              Destiny Tracker: Link to game profiles like Raider.io, Tracker.gg, etc.
+            </label>
+            <input 
+              type="text" 
+              class="form-input" 
+              id="tracker" 
+              name="tracker"
+              required
+            />
           </div>
-
           <div class="form-group">
-            <label class="form-label required"
-              >Explain your gaming experience, achievements, and any previous marketplace work</label
-            >
-            <textarea class="form-textarea" id="experience" required></textarea>
+            <label class="form-label required">
+              Explain your gaming experience, achievements, and any previous marketplace work
+            </label>
+            <textarea 
+              class="form-textarea" 
+              id="experience"
+              name="experience"
+              required
+            ></textarea>
           </div>
         </div>
 
@@ -942,12 +799,18 @@
         <div class="section">
           <h2 class="section-title">Verification</h2>
           <div class="form-group">
-            <label class="form-label required"
-              >Upload screenshots to verify your gaming profile and completed orders</label
-            >
+            <label class="form-label required">
+              Upload screenshots to verify your gaming profile and completed orders
+            </label>
             <div class="file-upload">
               <label for="fileInput" class="file-btn">Add Files</label>
-              <input type="file" id="fileInput" accept="image/*" multiple />
+              <input 
+                type="file" 
+                id="fileInput" 
+                name="files[]" 
+                accept="image/*" 
+                multiple
+              />
             </div>
             <div class="file-list" id="fileList"></div>
           </div>
@@ -957,44 +820,50 @@
         <div class="section">
           <h2 class="section-title">VPN & Streaming</h2>
           <div class="form-group">
-            <label class="form-label required"
-              >Do you use VPN for piloted services?</label
-            >
+            <label class="form-label required">Do you use VPN for piloted services?</label>
             <div class="radio-group">
               <label class="radio-option">
-                <input
-                  type="radio"
-                  name="vpn"
-                  class="radio-input"
+                <input 
+                  type="radio" 
+                  name="vpn" 
+                  class="radio-input" 
                   value="Yes"
                   required
                 />
                 <span class="radio-label">Yes</span>
               </label>
               <label class="radio-option">
-                <input type="radio" name="vpn" class="radio-input" value="No" />
+                <input 
+                  type="radio" 
+                  name="vpn" 
+                  class="radio-input" 
+                  value="No"
+                />
                 <span class="radio-label">No</span>
               </label>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label required"
-              >Are you able to stream your services?</label
-            >
+            <label class="form-label required">Are you able to stream your services?</label>
             <div class="radio-group">
               <label class="radio-option">
-                <input
-                  type="radio"
-                  name="streaming"
-                  class="radio-input"
+                <input 
+                  type="radio" 
+                  name="streaming" 
+                  class="radio-input" 
                   value="Yes"
                   required
                 />
                 <span class="radio-label">Yes</span>
               </label>
               <label class="radio-option">
-                <input type="radio" name="streaming" class="radio-input" value="No" />
+                <input 
+                  type="radio" 
+                  name="streaming" 
+                  class="radio-input" 
+                  value="No"
+                />
                 <span class="radio-label">No</span>
               </label>
             </div>
@@ -1003,7 +872,11 @@
 
         <div class="navigation">
           <div></div>
-          <button type="button" class="nav-button next" id="nextButton">
+          <button 
+            type="button" 
+            class="nav-button next" 
+            id="nextButton"
+          >
             CONTINUE <span style="margin-left: 5px;">→</span>
           </button>
         </div>
@@ -1018,11 +891,23 @@
           <div class="form-grid">
             <div class="form-group">
               <label class="form-label required">First Name</label>
-              <input type="text" class="form-input" id="firstName" required />
+              <input 
+                type="text" 
+                class="form-input" 
+                id="firstName"
+                name="firstName"
+                required
+              />
             </div>
             <div class="form-group">
               <label class="form-label required">Last Name</label>
-              <input type="text" class="form-input" id="lastName" required />
+              <input 
+                type="text" 
+                class="form-input" 
+                id="lastName"
+                name="lastName"
+                required
+              />
             </div>
           </div>
 
@@ -1030,17 +915,22 @@
             <label class="form-label required">Are you 18+?</label>
             <div class="radio-group">
               <label class="radio-option">
-                <input
-                  type="radio"
-                  name="age"
-                  class="radio-input"
+                <input 
+                  type="radio" 
+                  name="age" 
+                  class="radio-input" 
                   value="Yes"
                   required
                 />
                 <span class="radio-label">Yes</span>
               </label>
               <label class="radio-option">
-                <input type="radio" name="age" class="radio-input" value="No" />
+                <input 
+                  type="radio" 
+                  name="age" 
+                  class="radio-input" 
+                  value="No"
+                />
                 <span class="radio-label">No</span>
               </label>
             </div>
@@ -1050,43 +940,48 @@
             <label class="form-label">How did you hear about us?</label>
             <div class="radio-group">
               <label class="radio-option">
-                <input
-                  type="radio"
-                  name="hearAbout"
-                  class="radio-input"
+                <input 
+                  type="radio" 
+                  name="hearAbout" 
+                  class="radio-input" 
                   value="Facebook"
                 />
                 <span class="radio-label">Facebook</span>
               </label>
               <label class="radio-option">
-                <input
-                  type="radio"
-                  name="hearAbout"
-                  class="radio-input"
+                <input 
+                  type="radio" 
+                  name="hearAbout" 
+                  class="radio-input" 
                   value="Instagram"
                 />
                 <span class="radio-label">Instagram</span>
               </label>
               <label class="radio-option">
-                <input
-                  type="radio"
-                  name="hearAbout"
-                  class="radio-input"
+                <input 
+                  type="radio" 
+                  name="hearAbout" 
+                  class="radio-input" 
                   value="Discord"
                 />
                 <span class="radio-label">Discord</span>
               </label>
               <label class="radio-option">
-                <input
-                  type="radio"
-                  name="hearAbout"
-                  class="radio-input"
+                <input 
+                  type="radio" 
+                  name="hearAbout" 
+                  class="radio-input" 
                   value="Colleague/Friend"
                 />
                 <span class="radio-label">A colleague/friend</span>
               </label>
               <label class="radio-option">
-                <input type="radio" name="hearAbout" class="radio-input" value="Other" />
+                <input 
+                  type="radio" 
+                  name="hearAbout" 
+                  class="radio-input" 
+                  value="Other"
+                />
                 <span class="radio-label">Other</span>
               </label>
             </div>
@@ -1094,9 +989,10 @@
 
           <div class="form-group">
             <label class="form-label required">Tell us something about yourself</label>
-            <textarea
-              class="form-textarea"
+            <textarea 
+              class="form-textarea" 
               id="aboutYourself"
+              name="aboutYourself"
               placeholder="Add here..."
               required
             ></textarea>
@@ -1106,20 +1002,27 @@
         <!-- Join Discord -->
         <div class="section">
           <h2 class="section-title">JOIN VANGUARD BOOST DISCORD</h2>
-          <div class="join-discord">
-            <p class="join-discord-text">
+          <div style="background-color: rgba(20, 21, 24, 0.8); padding: 20px; border-left: 3px solid var(--primary);">
+            <p style="color: white; margin-bottom: 15px; text-transform: uppercase; font-size: 14px; font-weight: 500;">
               YOU ARE INVITED TO JOIN THE RECRUITING DISCORD SERVER.
             </p>
             <div style="display: flex; align-items: center; margin-top: 15px;">
-              <label
-                class="checkbox-option"
+              <label 
+                class="checkbox-option" 
                 style="margin: 0; padding-left: 35px; position: relative;"
               >
-                <input type="checkbox" class="checkbox-input" id="joinedDiscord" />
+                <input 
+                  type="checkbox" 
+                  class="checkbox-input" 
+                  id="joinedDiscord"
+                  name="joinedDiscord"
+                />
                 <span class="checkmark"></span>
                 <span class="checkbox-label">I'VE JOINED THE SERVER.</span>
               </label>
-              <a href="#" class="join-discord-button">JOIN NOW</a>
+              <a href="#" class="submit-button" style="margin-left: 15px; color: black;">
+                JOIN NOW
+              </a>
             </div>
           </div>
         </div>
@@ -1127,15 +1030,24 @@
         <!-- Message to Confirm -->
         <div class="section">
           <h2 class="section-title">MESSAGE TO CONFIRM</h2>
-          <div class="message-confirm">
-            <p class="message-text">
-              SEND A FRIEND REQUEST TO @VANGUARDRECRUITER ON DISCORD AND NOTIFY THEM
-              OF YOUR SUBMITTED APPLICATION.
+          <div>
+            <p style="color: white; margin-bottom: 15px; text-transform: uppercase; font-size: 14px;">
+              SEND A FRIEND REQUEST TO @VANGUARDRECRUITER ON DISCORD AND NOTIFY THEM OF YOUR SUBMITTED APPLICATION.
             </p>
-            <p class="example-text">
+            <p style="color: #aaa; margin-bottom: 15px; text-transform: uppercase; font-size: 14px;">
               EXAMPLE: "HELLO! I'VE JUST SENT AN APPLICATION TO BECOME A BOOSTER."
             </p>
-            <a href="#" class="go-discord-button">GO TO DISCORD</a>
+            <a href="#" style="
+              display: inline-block;
+              float: right;
+              background-color: #333;
+              color: white;
+              padding: 8px 20px;
+              text-decoration: none;
+              transition: all 0.2s;
+              text-transform: uppercase;
+              font-size: 14px;
+            ">GO TO DISCORD</a>
             <div style="clear: both;"></div>
           </div>
         </div>
@@ -1143,32 +1055,28 @@
         <!-- Secure Verification -->
         <div class="section">
           <h2 class="section-title">SECURE VERIFICATION</h2>
-          <div class="verification-box">
+          <div style="background-color: rgba(25, 27, 40, 0.8); padding: 20px; border-left: 3px solid var(--primary);">
             <label class="checkbox-option">
-              <input
-                type="checkbox"
-                class="checkbox-input"
+              <input 
+                type="checkbox" 
+                class="checkbox-input" 
                 id="verification"
+                name="verification"
                 required
               />
               <span class="checkmark"></span>
-              <span class="checkbox-label"
-                >I AGREE TO THE THIRD-PARTY VERIFICATION PROCESS</span
-              >
+              <span class="checkbox-label">I AGREE TO THE THIRD-PARTY VERIFICATION PROCESS</span>
             </label>
-
             <label class="checkbox-option" style="margin-top: 15px;">
-              <input
-                type="checkbox"
-                class="checkbox-input"
+              <input 
+                type="checkbox" 
+                class="checkbox-input" 
                 id="fraudAgreement"
+                name="fraudAgreement"
                 required
               />
               <span class="checkmark"></span>
-              <span class="checkbox-label"
-                >ATTEMPTS AT VERIFICATION FRAUD WILL RESULT IN APPLICATION REJECTION!
-                <strong>I UNDERSTAND AND AGREE.</strong></span
-              >
+              <span class="checkbox-label">ATTEMPTS AT VERIFICATION FRAUD WILL RESULT IN APPLICATION REJECTION! <strong>I UNDERSTAND AND AGREE.</strong></span>
             </label>
           </div>
         </div>
@@ -1178,41 +1086,41 @@
           <button type="submit" class="submit-button" id="submitButton" disabled>
             SUBMIT APPLICATION
           </button>
-
           <div class="checkbox-group" style="margin-top: 25px;">
             <label class="checkbox-option">
-              <input
-                type="checkbox"
-                class="checkbox-input"
+              <input 
+                type="checkbox" 
+                class="checkbox-input" 
                 id="submissionAgreement"
+                name="submissionAgreement"
                 required
               />
               <span class="checkmark"></span>
-              <span class="checkbox-label"
-                >CLICKING THE "SUBMIT" BUTTON SENDS THE APPLICATION FOR CONSIDERATION,
-                WHICH MAY TAKE UP TO 7 DAYS OR LONGER. IF APPROVED, YOU WILL BE CONTACTED
-                VIA DISCORD.
-                <strong>I'VE READ THIS INFORMATION THOROUGHLY.</strong></span
-              >
+              <span class="checkbox-label">
+                CLICKING THE "SUBMIT" BUTTON SENDS THE APPLICATION FOR CONSIDERATION, WHICH MAY TAKE UP TO 7 DAYS OR LONGER. IF APPROVED, YOU WILL BE CONTACTED VIA DISCORD. <strong>I'VE READ THIS INFORMATION THOROUGHLY.</strong>
+              </span>
             </label>
-
             <label class="checkbox-option" style="margin-top: 20px;">
-              <input
-                type="checkbox"
-                class="checkbox-input"
+              <input 
+                type="checkbox" 
+                class="checkbox-input" 
                 id="missingInfoAgreement"
+                name="missingInfoAgreement"
                 required
               />
               <span class="checkmark"></span>
-              <span class="checkbox-label"
-                >IF ANY FORM FIELDS ARE FILLED OUT INCORRECTLY OR MISSING, THE
-                APPLICATION MAY BE DECLINED WITHOUT FURTHER EXPLANATION.
-                <strong>I UNDERSTAND.</strong></span
-              >
+              <span class="checkbox-label">
+                IF ANY FORM FIELDS ARE FILLED OUT INCORRECTLY OR MISSING, THE APPLICATION MAY BE DECLINED WITHOUT FURTHER EXPLANATION. <strong>I UNDERSTAND.</strong>
+              </span>
             </label>
-
             <label class="checkbox-option" style="margin-top: 20px;">
-              <input type="checkbox" class="checkbox-input" id="captcha" required />
+              <input 
+                type="checkbox" 
+                class="checkbox-input" 
+                id="captcha"
+                name="captcha"
+                required
+              />
               <span class="checkmark"></span>
               <span class="checkbox-label">I AM NOT A ROBOT.</span>
             </label>
@@ -1260,7 +1168,6 @@
 
       if (gameSelect && otherGameInput) {
         gameSelect.addEventListener("change", function () {
-          console.log("Game selection changed to:", this.value);
           if (this.value === "Other") {
             otherGameInput.style.display = "block";
           } else {
@@ -1275,7 +1182,6 @@
 
       availabilityRadios.forEach(function (radio) {
         radio.addEventListener("change", function () {
-          console.log("Availability changed to:", this.value);
           if (this.value === "Other") {
             otherAvailabilityInput.style.display = "block";
           } else {
@@ -1290,33 +1196,26 @@
       const MAX_FILES = 2;
       let uploadedFiles = [];
 
-      fileInput.addEventListener("change", function (e) {
-        console.log("File input changed, files selected:", this.files.length);
+      fileInput.addEventListener("change", function () {
         if (this.files.length > 0) {
           if (uploadedFiles.length >= MAX_FILES) {
             alert("Maximum of " + MAX_FILES + " files allowed");
             return;
           }
-
           const file = this.files[0];
           const fileObj = {
             id: Date.now(),
             name: file.name,
-            file: file,
+            file: file
           };
-
           uploadedFiles.push(fileObj);
           updateFileListUI();
-
-          // Reset the file input
           this.value = "";
         }
       });
 
       function updateFileListUI() {
-        console.log("Updating file list UI with", uploadedFiles.length, "files");
         fileList.innerHTML = "";
-
         uploadedFiles.forEach(function (fileObj) {
           const fileItem = document.createElement("div");
           fileItem.className = "file-item";
@@ -1330,8 +1229,7 @@
           deleteButton.textContent = "×";
           deleteButton.setAttribute("data-id", fileObj.id);
           deleteButton.addEventListener("click", function () {
-            const fileId = this.getAttribute("data-id");
-            deleteFile(fileId);
+            deleteFile(fileObj.id);
           });
 
           fileItem.appendChild(fileName);
@@ -1349,9 +1247,7 @@
       }
 
       function deleteFile(fileId) {
-        console.log("Deleting file with ID:", fileId);
-        const index = uploadedFiles.findIndex((file) => file.id == fileId);
-
+        const index = uploadedFiles.findIndex(file => file.id == fileId);
         if (index !== -1) {
           uploadedFiles.splice(index, 1);
           updateFileListUI();
@@ -1361,15 +1257,12 @@
       // 4. Page navigation with validation
       if (nextButton) {
         nextButton.addEventListener("click", function () {
-          console.log("Next button clicked - validating fields on page 1");
           if (validatePage(page1)) {
             page1.style.display = "none";
             page2.style.display = "block";
-
             step1.classList.remove("active");
             step1.classList.add("completed");
             step2.classList.add("active");
-
             progressFill.style.width = "100%";
             setupPage2Validation();
             window.scrollTo(0, 0);
@@ -1381,42 +1274,31 @@
 
       if (backButton) {
         backButton.addEventListener("click", function () {
-          console.log("Back button clicked");
           page2.style.display = "none";
           page1.style.display = "block";
-
           step2.classList.remove("active");
           step1.classList.remove("completed");
           step1.classList.add("active");
-
           progressFill.style.width = "0%";
           window.scrollTo(0, 0);
         });
       }
 
       function checkPage2Fields() {
-        if (!page2) return false;
-        const requiredInputs = page2.querySelectorAll(
-          "input[required], select[required], textarea[required]"
-        );
+        const requiredInputs = page2.querySelectorAll("input[required], select[required], textarea[required]");
         let allValid = true;
-
         requiredInputs.forEach(function (input) {
           if (input.type === "checkbox" && !input.checked) {
             allValid = false;
           } else if (input.type === "radio") {
             const name = input.name;
-            const radioGroup = page2.querySelectorAll(
-              `input[type="radio"][name="${name}"]`
-            );
+            const radioGroup = page2.querySelectorAll(`input[type="radio"][name="${name}"]`);
             let anyChecked = false;
-
             radioGroup.forEach(function (radio) {
               if (radio.checked) {
                 anyChecked = true;
               }
             });
-
             if (!anyChecked) {
               allValid = false;
             }
@@ -1424,7 +1306,6 @@
             allValid = false;
           }
         });
-
         return allValid;
       }
 
@@ -1452,32 +1333,6 @@
         });
       }
 
-      // Email validation example
-      const emailField = document.getElementById("email");
-      if (emailField) {
-        emailField.addEventListener("blur", function () {
-          const emailError = document.getElementById("emailError");
-          if (!this.value.trim()) {
-            this.classList.add("error");
-            if (emailError) {
-              emailError.textContent = "Please enter your email address";
-              emailError.style.display = "block";
-            }
-          } else if (!isValidEmail(this.value)) {
-            this.classList.add("error");
-            if (emailError) {
-              emailError.textContent = "Please enter a valid email address";
-              emailError.style.display = "block";
-            }
-          } else {
-            this.classList.remove("error");
-            if (emailError) {
-              emailError.style.display = "none";
-            }
-          }
-        });
-      }
-
       function setupErrorClearingBehavior() {
         const allFormElements = document.querySelectorAll("input, select, textarea");
         allFormElements.forEach(function (element) {
@@ -1489,9 +1344,7 @@
           element.addEventListener("change", function () {
             removeError(this);
             if (element.type === "radio") {
-              const radioButtons = document.querySelectorAll(
-                `input[type="radio"][name="${element.name}"]`
-              );
+              const radioButtons = document.querySelectorAll(`input[type="radio"][name="${element.name}"]`);
               radioButtons.forEach(function (radio) {
                 removeError(radio);
               });
@@ -1512,16 +1365,11 @@
       if (applicationForm) {
         applicationForm.addEventListener("submit", function (e) {
           e.preventDefault();
-          console.log("Form submitted - validating fields on page 2");
-
           if (validatePage(page2)) {
-            console.log("Form validation successful - sending to Netlify");
-            // Optional alert
             alert("Application submitted successfully!");
-            // Actually submit to Netlify (redirect to thank-you.html)
-            applicationForm.submit();
+            applicationForm.submit(); // triggers Netlify redirect to thank-you.html
           } else {
-            alert("Please fill in all required fields before submitting. Missing fields have been highlighted in red.");
+            alert("Please fill in all required fields before submitting.");
             const firstErrorField = page2.querySelector(".error");
             if (firstErrorField) {
               firstErrorField.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -1532,17 +1380,14 @@
 
       function validatePage(page) {
         let isValid = true;
-        const requiredElements = page.querySelectorAll(
-          "input[required], select[required], textarea[required]"
-        );
-
+        const requiredElements = page.querySelectorAll("input[required], select[required], textarea[required]");
         requiredElements.forEach(function (element) {
           if (!validateElement(element)) {
             isValid = false;
           }
         });
 
-        // Special validation for checkboxes (Page 1)
+        // Additional checkboxes for Page 1
         if (page === page1) {
           // Services
           const serviceCheckboxes = page.querySelectorAll('input[name="services"]');
@@ -1552,10 +1397,7 @@
           });
           if (!serviceChecked && serviceCheckboxes.length > 0) {
             isValid = false;
-            highlightError(
-              serviceCheckboxes[0].closest(".form-group"),
-              "Please select at least one service"
-            );
+            highlightError(serviceCheckboxes[0].closest(".form-group"), "Please select at least one service");
           }
 
           // Platforms
@@ -1566,10 +1408,7 @@
           });
           if (!platformChecked && platformCheckboxes.length > 0) {
             isValid = false;
-            highlightError(
-              platformCheckboxes[0].closest(".form-group"),
-              "Please select at least one platform"
-            );
+            highlightError(platformCheckboxes[0].closest(".form-group"), "Please select at least one platform");
           }
         }
 
@@ -1577,21 +1416,18 @@
       }
 
       function validateElement(element) {
-        // Skip if hidden (like a collapsed "Other" text box) unless it's a checkbox
+        // If hidden (like 'Other' fields not displayed), skip unless it's a checkbox
         if (element.offsetParent === null && !element.classList.contains("checkbox-input")) {
           return true;
         }
 
         let isValid = true;
-
         if (element.type === "checkbox") {
           if (element.required && !element.checked) {
             isValid = false;
           }
         } else if (element.type === "radio") {
-          const radioGroup = document.querySelectorAll(
-            `input[type="radio"][name="${element.name}"]`
-          );
+          const radioGroup = document.querySelectorAll(`input[type="radio"][name="${element.name}"]`);
           let radioChecked = false;
           radioGroup.forEach(function (radio) {
             if (radio.checked) radioChecked = true;
