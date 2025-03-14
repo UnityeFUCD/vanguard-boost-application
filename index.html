@@ -511,7 +511,6 @@
             </div>
             <div class="form-group">
               <label class="form-label">Referred By</label>
-              <!-- CHANGED: name="referredBy" so it shows in Netlify/Zapier as "referredBy" -->
               <input type="text" class="form-input" id="referredBy" name="referredBy" />
             </div>
           </div>
@@ -557,7 +556,7 @@
             </div>
           </div>
 
-          <!-- NEW: Booster Type (Solo, Small Group, Team/Community) -->
+          <!-- REMOVED: Booster Type question
           <div class="form-group">
             <label class="form-label required">Are you applying as a solo booster, a small group, or a team/community?</label>
             <div class="radio-group">
@@ -575,6 +574,7 @@
               </label>
             </div>
           </div>
+          END REMOVED -->
         </div>
 
         <!-- Regions and Services -->
@@ -663,7 +663,6 @@
             <label class="form-label required">
               Destiny Tracker: Link to game profiles like Raider.io, Tracker.gg, etc.
             </label>
-            <!-- CHANGED: name="destinyTrackerUrl" so it appears in Netlify/Zapier as destinyTrackerUrl -->
             <input type="text" class="form-input" id="destinyTrackerUrl" name="destinyTrackerUrl" required />
           </div>
           <div class="form-group">
@@ -692,19 +691,34 @@
         <!-- VPN & Streaming -->
         <div class="section">
           <h2 class="section-title">VPN & Streaming</h2>
+
+          <!-- REMOVED: "Do you use VPN for piloted services?" radio question 
           <div class="form-group">
-            <label class="form-label required">Do you use VPN for piloted services?</label>
-            <div class="radio-group">
-              <label class="radio-option">
-                <input type="radio" name="vpn" class="radio-input" value="Yes" required />
-                <span class="radio-label">Yes</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="vpn" class="radio-input" value="No" />
-                <span class="radio-label">No</span>
+            ...
+          </div>
+          END REMOVED -->
+
+          <!-- ADDED: VPN Acknowledgement Checkbox -->
+          <div class="form-group">
+            <label class="form-label required">VPN Requirement</label>
+            <div class="checkbox-group">
+              <label class="checkbox-option">
+                <input
+                  type="checkbox"
+                  class="checkbox-input"
+                  name="vpnAcknowledgement"
+                  id="vpnAcknowledgement"
+                  required
+                />
+                <span class="checkmark"></span>
+                <span class="checkbox-label">
+                  I acknowledge that I will be required to use a VPN.
+                </span>
               </label>
             </div>
           </div>
+          <!-- END ADDED -->
+
           <div class="form-group">
             <label class="form-label required">Are you able to stream your services?</label>
             <div class="radio-group">
@@ -1082,7 +1096,9 @@
           if (!validatePage(page2)) {
             alert("Please fill in all required fields before submitting.");
             const firstErrorField = page2.querySelector(".error");
-            if (firstErrorField) { firstErrorField.scrollIntoView({ behavior: "smooth", block: "center" }); }
+            if (firstErrorField) {
+              firstErrorField.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
             return;
           }
           const captchaResponse = document.querySelector('[name="g-recaptcha-response"]');
@@ -1103,14 +1119,18 @@
         if (page === page1) {
           const serviceCheckboxes = page.querySelectorAll('input[name="services"]');
           let serviceChecked = false;
-          serviceCheckboxes.forEach(function (checkbox) { if (checkbox.checked) serviceChecked = true; });
+          serviceCheckboxes.forEach(function (checkbox) {
+            if (checkbox.checked) serviceChecked = true;
+          });
           if (!serviceChecked && serviceCheckboxes.length > 0) {
             isValid = false;
             highlightError(serviceCheckboxes[0].closest(".form-group"), "Please select at least one service");
           }
           const platformCheckboxes = page.querySelectorAll('input[name="platforms"]');
           let platformChecked = false;
-          platformCheckboxes.forEach(function (checkbox) { if (checkbox.checked) platformChecked = true; });
+          platformCheckboxes.forEach(function (checkbox) {
+            if (checkbox.checked) platformChecked = true;
+          });
           if (!platformChecked && platformCheckboxes.length > 0) {
             isValid = false;
             highlightError(platformCheckboxes[0].closest(".form-group"), "Please select at least one platform");
@@ -1119,10 +1139,14 @@
         return isValid;
       }
       function validateElement(element) {
-        if (element.offsetParent === null && !element.classList.contains("checkbox-input")) { return true; }
+        if (element.offsetParent === null && !element.classList.contains("checkbox-input")) {
+          return true;
+        }
         let isValid = true;
         if (element.type === "checkbox") {
-          if (element.required && !element.checked) { isValid = false; }
+          if (element.required && !element.checked) {
+            isValid = false;
+          }
         } else if (element.type === "radio") {
           const radioGroup = document.querySelectorAll('input[type="radio"][name="' + element.name + '"]');
           let radioChecked = false;
@@ -1133,15 +1157,25 @@
             isValid = false;
           }
         } else if (element.tagName === "SELECT") {
-          if (!element.value) { isValid = false; }
+          if (!element.value) {
+            isValid = false;
+          }
         } else {
-          if (!element.value.trim()) { isValid = false; }
+          if (!element.value.trim()) {
+            isValid = false;
+          }
           if (element.type === "email" && element.value) {
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(element.value)) { isValid = false; }
+            if (!emailPattern.test(element.value)) {
+              isValid = false;
+            }
           }
         }
-        if (!isValid) { highlightError(element); } else { removeError(element); }
+        if (!isValid) {
+          highlightError(element);
+        } else {
+          removeError(element);
+        }
         return isValid;
       }
       function highlightError(element, message) {
@@ -1158,7 +1192,9 @@
           errorMsg.style.display = "block";
         }
         const checkboxOption = element.closest(".checkbox-option");
-        if (checkboxOption) { checkboxOption.classList.add("error"); }
+        if (checkboxOption) {
+          checkboxOption.classList.add("error");
+        }
         element.classList.add("error");
       }
       function removeError(element) {
@@ -1166,7 +1202,9 @@
         if (formGroup) {
           formGroup.classList.remove("error-group");
           const errorMsg = formGroup.querySelector(".error-message");
-          if (errorMsg) { errorMsg.style.display = "none"; }
+          if (errorMsg) {
+            errorMsg.style.display = "none";
+          }
         }
         element.classList.remove("error");
       }
